@@ -16,22 +16,21 @@ screen.onkeypress(fun=player.go_up, key="Up")
 
 car_speed = 0.1
 game_is_on = True
-hit_car = False
 
 while game_is_on:
     time.sleep(car_speed)
     screen.update()
     score.show_score()
-    car.car_move()
 
-    if hit_car:
+    car.car_move()
+    if car.car_hit(player.pos()):
         score.game_over()
         break
 
-    if player.ycor() == 280:
+    if player.ycor() > 280:
         score.add_score()
         player.set_start()
-        if car_speed < 0.001:
+        if car_speed > 0.001:
             car_speed -= 0.001
 
 screen.mainloop()
